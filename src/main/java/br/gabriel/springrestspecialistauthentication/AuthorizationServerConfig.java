@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -21,13 +22,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.
-                inMemory()
+        clients
+                .inMemory()
                     .withClient("web-client")
                     .secret(passwordEncoder.encode("123"))
                     .authorizedGrantTypes("password")
                     .accessTokenValiditySeconds(60 * 60)
                     .scopes("WRITE", "READ");
+    }
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security
+                .checkTokenAccess("permitAll()");
     }
 
     @Override
