@@ -25,10 +25,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         clients
                 .inMemory()
                     .withClient("web-client")
-                    .secret(passwordEncoder.encode("123"))
-                    .authorizedGrantTypes("password")
-                    .accessTokenValiditySeconds(60 * 60)
-                    .scopes("WRITE", "READ");
+                        .secret(passwordEncoder.encode("123"))
+                        .authorizedGrantTypes("password")
+                        .accessTokenValiditySeconds(60 * 60)
+                        .scopes("WRITE", "READ").and()
+                    .withClient("introspect")
+                        .secret(passwordEncoder.encode("123"))
+                        .authorizedGrantTypes("password");
     }
 
     @Override
