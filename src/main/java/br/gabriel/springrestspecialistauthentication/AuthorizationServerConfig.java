@@ -15,6 +15,10 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+    private static final int TOKEN_VALIDITY = 60 * 60;
+
+    private static final int REFRESH_TOKEN_VALIDITY = 60 * 60 * 24 * 7;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -31,9 +35,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                     .withClient("web-client")
                         .secret(passwordEncoder.encode("123"))
                         .authorizedGrantTypes("password", "refresh_token")
-                        .accessTokenValiditySeconds(60 * 60)
-                        .refreshTokenValiditySeconds(60 * 60 * 24 * 7)
+                        .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                        .refreshTokenValiditySeconds(REFRESH_TOKEN_VALIDITY)
                         .scopes("WRITE", "READ").and()
+
+                    .withClient("background-app")
+                        .secret(passwordEncoder.encode("123"))
+                        .authorizedGrantTypes("client_credentials")
+                        .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                        .scopes("WRITE").and()
+
                     .withClient("introspect")
                         .secret(passwordEncoder.encode("123"))
                         .authorizedGrantTypes("password");
