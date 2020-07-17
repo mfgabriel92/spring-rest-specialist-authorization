@@ -37,13 +37,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                         .authorizedGrantTypes("password", "refresh_token")
                         .accessTokenValiditySeconds(TOKEN_VALIDITY)
                         .refreshTokenValiditySeconds(REFRESH_TOKEN_VALIDITY)
-                        .scopes("WRITE", "READ").and()
+                        .scopes("WRITE", "READ", "DELETE").and()
 
                     .withClient("background-app")
                         .secret(passwordEncoder.encode("123"))
                         .authorizedGrantTypes("client_credentials")
                         .accessTokenValiditySeconds(TOKEN_VALIDITY)
-                        .scopes("WRITE").and()
+                        .scopes("WRITE", "READ", "DELETE").and()
+
+                    .withClient("analytics-app")
+                        .secret(passwordEncoder.encode("123"))
+                        .authorizedGrantTypes("authorization_code")
+                        .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                        .redirectUris("http://another-uri.com")
+                        .scopes("WRITE", "READ", "DELETE").and()
 
                     .withClient("introspect")
                         .secret(passwordEncoder.encode("123"))
