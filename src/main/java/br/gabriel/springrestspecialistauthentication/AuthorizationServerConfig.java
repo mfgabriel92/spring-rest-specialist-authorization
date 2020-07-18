@@ -36,7 +36,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Value("{srs.jwt.signing-key}")
+    @Value("${srs.jwt.signing-key}")
     private String signingKey;
 
     @Override
