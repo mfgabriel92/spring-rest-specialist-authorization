@@ -52,6 +52,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                         .redirectUris("http://another-uri.com")
                         .scopes("WRITE", "READ", "DELETE").and()
 
+                    .withClient("webadmin")
+                        .authorizedGrantTypes("implicit")
+                        .accessTokenValiditySeconds(TOKEN_VALIDITY)
+                        .redirectUris("http://another-uri.com")
+                        .scopes("WRITE", "READ", "DELETE").and()
+
                     .withClient("introspect")
                         .secret(passwordEncoder.encode("123"))
                         .authorizedGrantTypes("password");
