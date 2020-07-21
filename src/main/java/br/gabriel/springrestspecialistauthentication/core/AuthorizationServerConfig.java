@@ -1,6 +1,7 @@
-package br.gabriel.springrestspecialistauthentication;
+package br.gabriel.springrestspecialistauthentication.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -38,6 +39,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Qualifier("theUserDetails")
     @Autowired
     private UserDetailsService userDetailsService;
 
