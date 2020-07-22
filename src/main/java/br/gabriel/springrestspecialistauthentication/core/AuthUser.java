@@ -8,11 +8,14 @@ import java.util.Collections;
 
 @Getter
 public class AuthUser extends User {
+    private final Integer id;
+
     private final String name;
 
     public AuthUser(TheUser theUser) {
         super(theUser.getEmail(), theUser.getPassword(), Collections.emptyList());
 
+        this.id = theUser.getId();
         this.name = theUser.getName();
     }
 }
