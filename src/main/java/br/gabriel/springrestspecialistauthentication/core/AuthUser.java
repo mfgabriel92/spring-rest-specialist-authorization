@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
-import java.util.Collections;
 
 @Getter
 public class AuthUser extends User {
@@ -15,7 +14,7 @@ public class AuthUser extends User {
     private final String name;
 
     public AuthUser(TheUser theUser, Collection<? extends GrantedAuthority> authorities) {
-        super(theUser.getEmail(), theUser.getPassword(), Collections.emptyList());
+        super(theUser.getEmail(), theUser.getPassword(), authorities);
 
         this.id = theUser.getId();
         this.name = theUser.getName();
